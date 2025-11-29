@@ -32,7 +32,7 @@ export default function LoginScreen() {
           onChangeText={setPassword}
         />
         <TouchableOpacity className="bg-[#4269E1] py-4 text-center rounded-lg flex items-center" onPress={() => router.replace("/(tabs)/start")}> 
-          <Text className="text-white font-bold">Login</Text>
+          <Ionicons name="checkmark" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
         <View style={{ height: 16 }} />
@@ -47,7 +47,7 @@ export default function LoginScreen() {
         </View>
       </View>
 
-      <ModalCard visible={showTerms} onClose={() => setShowTerms(false)} title="Terms & Conditions" align="center">
+      <ModalCard visible={showTerms} onClose={() => setShowTerms(false)} title="Terms & Conditions">
         <ScrollView className="max-h-96">
           <Text className="text-black/80">
             Placeholder content. You can replace this with your real terms & conditions content.
@@ -58,7 +58,7 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </ModalCard>
 
-      <ModalCard visible={showPrivacy} onClose={() => setShowPrivacy(false)} title="Privacy Policy" align="center">
+      <ModalCard visible={showPrivacy} onClose={() => setShowPrivacy(false)} title="Privacy Policy">
         <ScrollView className="max-h-96">
           <Text className="text-black/80">
             Placeholder content. You can replace this with your real privacy policy content.

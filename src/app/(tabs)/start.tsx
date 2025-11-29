@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function StartScreen() {
   return (
@@ -17,7 +18,7 @@ export default function StartScreen() {
           <Text>Urlaub</Text>
         </TouchableOpacity>
         <TouchableOpacity className="bg-white p-2 items-center justify-center rounded-lg">
-          {/* path icon */}
+          <Ionicons name="navigate" size={20} color="#000000" />
         </TouchableOpacity>
         <TouchableOpacity className="bg-white py-2 flex-1 items-center justify-center rounded-lg">
           <Text>Krankheitstage</Text>

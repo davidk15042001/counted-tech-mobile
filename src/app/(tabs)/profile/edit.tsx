@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
 import BackButton from "../../../components/BackButton";
 import { router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function EditProfile() {
   const [name, setName] = useState("");
@@ -51,15 +52,15 @@ export default function EditProfile() {
                   <Text className="text-white mb-2">Führerschein</Text>
                   <View className="flex flex-row w-full gap-4">
                     <View className="flex-1 items-center p-4 rounded-lg bg-[#2E4BA4] border-2 border-white text-white">
-                      {/* check icon */}
+                      <Ionicons name="checkmark" size={22} color="#FFFFFF" />
                     </View>
                     <View className="flex-1 items-center p-4 rounded-lg bg-red-600 text-white">
-                      {/* cancel icon */}
+                      <Ionicons name="close" size={22} color="#FFFFFF" />
                     </View>
                   </View>
                 </View>
                 <TouchableOpacity className="bg-[#4269E1] p-4 rounded-lg flex items-center justify-center mt-6" onPress={() => router.push("/(tabs)/profile")}> 
-                  {/* double chevron right icon to indicate continue */}
+                  <Ionicons name="chevron-forward-outline" size={22} color="#FFFFFF" />
                 </TouchableOpacity>
               </ScrollView>
       </View>

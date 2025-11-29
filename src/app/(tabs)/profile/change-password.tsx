@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import BackButton from "../../../components/BackButton";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function ChangePassword() {
   const [oldP, setOldP] = useState("");
@@ -37,7 +38,7 @@ export default function ChangePassword() {
         secureTextEntry
       />
       <TouchableOpacity className="bg-[#4269E1] py-4 text-center rounded-lg flex items-center">
-        {/* checked icon */}
+        <Ionicons name="checkmark" size={20} color="#FFFFFF" />
       </TouchableOpacity>
     </View>
   );

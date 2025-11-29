@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import BackButton from "../../../components/BackButton";
 import { router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function ProfileView() {
   return (
@@ -14,7 +15,7 @@ export default function ProfileView() {
             router.push("/(tabs)/profile/edit");
           }}
         >
-          {/* pen icon for edit */}
+          <Ionicons name="pencil" size={18} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
       <View className="flex items-center justify-center mb-6">

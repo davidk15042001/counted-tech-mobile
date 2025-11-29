@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
   Image,
 } from "react-native";
@@ -68,31 +67,3 @@ export default function SignupStep2() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#273444", padding: 16, paddingTop: 64 },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 16,
-  },
-  headerTitle: { color: "#FFFFFF", fontSize: 18, fontWeight: "700" },
-  input: {
-    backgroundColor: "#324155",
-    color: "#FFFFFF",
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    height: 48,
-    marginBottom: 12,
-  },
-  primaryBtn: {
-    backgroundColor: "#2E4BA4",
-    height: 48,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-  },
-  primaryBtnText: { color: "#FFFFFF", fontWeight: "700" },
-});

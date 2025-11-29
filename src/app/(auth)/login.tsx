@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { Link, router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import ModalCard from "../../components/ModalCard";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -9,11 +11,11 @@ export default function LoginScreen() {
   const [showPrivacy, setShowPrivacy] = useState(false);
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Willkommen zurück</Text>
+    <View className="flex-1 bg-[#273444] p-6">
+      <Text className="text-white text-2xl font-bold text-center my-6">Willkommen zurück</Text>
       <Text className="text-white mb-4 text-center px-8">Schön, dich wiederzusehen. Wir wünschen dir einen schönen Arbeitstag.</Text>
 
-      <View style={styles.form}>
+      <View className="gap-3">
         <TextInput
           placeholder="Telefonnummer"
           placeholderTextColor="#838D95"
@@ -40,87 +42,33 @@ export default function LoginScreen() {
         </View>
 
         <View style={{ height: 24 }} />
-        <View style={{ flexDirection: "row", justifyContent: "center", gap: 16 }}>
-          <TouchableOpacity onPress={() => setShowTerms(true)}><Text style={styles.link}>Du hast Fragen? Wir sind da.</Text></TouchableOpacity>
+        <View className="flex flex-row items-center justify-center gap-4">
+          <TouchableOpacity onPress={() => setShowTerms(true)}><Text className="text-white font-semibold">Du hast Fragen? Wir sind da.</Text></TouchableOpacity>
         </View>
       </View>
 
-      <DocModal
-        visible={showTerms}
-        title="Terms & Conditions"
-        onClose={() => setShowTerms(false)}
-      />
-      <DocModal
-        visible={showPrivacy}
-        title="Privacy Policy"
-        onClose={() => setShowPrivacy(false)}
-      />
+      <ModalCard visible={showTerms} onClose={() => setShowTerms(false)} title="Terms & Conditions" align="center">
+        <ScrollView className="max-h-96">
+          <Text className="text-black/80">
+            Placeholder content. You can replace this with your real terms & conditions content.
+          </Text>
+        </ScrollView>
+        <TouchableOpacity className="bg-[#2E4BA4] mt-4 rounded-xl h-11 items-center justify-center" onPress={() => setShowTerms(false)}>
+          <Text className="text-white font-bold">Confirm</Text>
+        </TouchableOpacity>
+      </ModalCard>
+
+      <ModalCard visible={showPrivacy} onClose={() => setShowPrivacy(false)} title="Privacy Policy" align="center">
+        <ScrollView className="max-h-96">
+          <Text className="text-black/80">
+            Placeholder content. You can replace this with your real privacy policy content.
+          </Text>
+        </ScrollView>
+        <TouchableOpacity className="bg-[#2E4BA4] mt-4 rounded-xl h-11 items-center justify-center" onPress={() => setShowPrivacy(false)}>
+          <Text className="text-white font-bold">Confirm</Text>
+        </TouchableOpacity>
+      </ModalCard>
     </View>
   );
 }
-
-function DocModal({ visible, onClose, title }: { visible: boolean; onClose: () => void; title: string; }) {
-  return (
-    <Modal visible={visible} animationType="slide" transparent>
-      <View style={styles.modalBackdrop}>
-        <View style={styles.modalCard}>
-          <TouchableOpacity onPress={onClose} style={styles.modalClose}>
-            <Text style={{ color: "#FFFFFF", fontWeight: "600" }}>Close</Text>
-          </TouchableOpacity>
-          <Text style={styles.modalTitle}>{title}</Text>
-          <ScrollView style={{ flex: 1 }}>
-            <Text style={styles.modalBody}>
-              Placeholder content. You can replace this with your real {title.toLowerCase()} content.
-            </Text>
-          </ScrollView>
-          <TouchableOpacity style={styles.confirmBtn} onPress={onClose}>
-            <Text style={styles.confirmBtnText}>Confirm</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  );
-}
-
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#273444", padding: 24, paddingTop: 80 },
-  title: { color: "#FFFFFF", fontSize: 24, fontWeight: "700", textAlign: "center", marginBottom: 24 },
-  form: { gap: 12 },
-  input: {
-    backgroundColor: "#324155",
-    color: "#FFFFFF",
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    height: 48,
-  },
-  primaryBtn: {
-    backgroundColor: "#2E4BA4",
-    height: 48,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-  },
-  primaryBtnText: { color: "#FFFFFF", fontWeight: "700" },
-  muted: { color: "#B0BEC5" },
-  link: { color: "#FFFFFF", fontWeight: "600" },
-  modalBackdrop: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    padding: 20,
-  },
-  modalCard: {
-    backgroundColor: "#273444",
-    borderRadius: 16,
-    minHeight: 360,
-    maxHeight: "80%",
-    paddingTop: 48,
-    overflow: "hidden",
-  },
-  modalClose: { position: "absolute", right: 12, top: 12, padding: 8, backgroundColor: "#000", borderRadius: 8 },
-  modalTitle: { color: "#FFFFFF", fontSize: 18, fontWeight: "700", textAlign: "center", marginBottom: 12 },
-  modalBody: { color: "#E5E7EB", paddingHorizontal: 16, paddingBottom: 16 },
-  confirmBtn: { backgroundColor: "#2E4BA4", margin: 16, borderRadius: 10, height: 44, alignItems: "center", justifyContent: "center" },
-  confirmBtnText: { color: "#FFFFFF", fontWeight: "700" },
-});
+ 

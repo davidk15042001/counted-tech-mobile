@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function MaterialAddModal() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#273444", padding: 16, paddingTop: 48 }}>
-      <TouchableOpacity onPress={() => router.back()} style={{ position: "absolute", right: 16, top: 12, backgroundColor: "#000", borderRadius: 8, padding: 8 }}>
-        <Text style={{ color: "#FFF", fontWeight: "700" }}>Close</Text>
+    <View className="flex-1 bg-[#273444] p-4 pt-12">
+      <TouchableOpacity onPress={() => router.back()} className="absolute right-4 top-3 bg-black rounded-lg p-2">
+        <Ionicons name="close" size={18} color="#FFFFFF" />
       </TouchableOpacity>
-      <Text style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "700", marginBottom: 12 }}>Add Material</Text>
-      <TextInput placeholder="Title" placeholderTextColor="#94A3B8" style={{ backgroundColor: "#324155", color: "#FFFFFF", borderRadius: 10, paddingHorizontal: 14, height: 48, marginBottom: 12 }} value={title} onChangeText={setTitle} />
-      <TextInput placeholder="Description" placeholderTextColor="#94A3B8" style={{ backgroundColor: "#324155", color: "#FFFFFF", borderRadius: 10, paddingHorizontal: 14, height: 100, marginBottom: 12 }} multiline value={desc} onChangeText={setDesc} />
-      <TouchableOpacity style={{ backgroundColor: "#2E4BA4", height: 48, borderRadius: 10, alignItems: "center", justifyContent: "center", marginTop: 8 }} onPress={() => router.back()}>
-        <Text style={{ color: "#FFFFFF", fontWeight: "700" }}>Save</Text>
+      <Text className="text-white text-xl font-bold mb-3">Add Material</Text>
+      <TextInput placeholder="Title" placeholderTextColor="#94A3B8" className="bg-[#324155] text-white rounded-xl px-4 h-12 mb-3" value={title} onChangeText={setTitle} />
+      <TextInput placeholder="Description" placeholderTextColor="#94A3B8" className="bg-[#324155] text-white rounded-xl px-4 h-24 mb-3" multiline value={desc} onChangeText={setDesc} />
+      <TouchableOpacity className="bg-[#2E4BA4] h-12 rounded-xl items-center justify-center mt-2" onPress={() => router.back()}>
+        <Text className="text-white font-bold">Save</Text>
       </TouchableOpacity>
     </View>
   );

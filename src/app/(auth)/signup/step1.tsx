@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
 import BackButton from "../../../components/BackButton";
 import { router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function SignupStep1() {
-  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [personalNo, setPersonalNo] = useState("");
   const [phone, setPhone] = useState("");
-  const [other, setOther] = useState("");
+  const [hasLicense, setHasLicense] = useState<boolean | null>(null);
+
+  const canContinue = lastName && firstName && personalNo && phone && hasLicense !== null;
 
   return (
     <View className="flex-1 p-6">
@@ -28,8 +32,8 @@ export default function SignupStep1() {
           placeholder="Nachname"
           placeholderTextColor="#838D95"
           className="bg-white p-4 rounded-lg mb-6"
-          value={firstName}
-          onChangeText={setFirstName}
+          value={lastName}
+          onChangeText={setLastName}
         />
         <TextInput
           placeholder="Vorname"
@@ -42,41 +46,35 @@ export default function SignupStep1() {
           placeholder="Personalnummer"
           placeholderTextColor="#838D95"
           className="bg-white p-4 rounded-lg mb-6"
-          value={firstName}
-          onChangeText={setFirstName}
+          value={personalNo}
+          onChangeText={setPersonalNo}
         />
         <TextInput
           placeholder="Telefonnummer"
           placeholderTextColor="#838D95"
           className="bg-white p-4 rounded-lg mb-6"
-          value={firstName}
-          onChangeText={setFirstName}
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
         />
-        {/* this is a radio selection and the one with the border is the indication it was selected, it's either yesor no here*/}
+        {/* Radio selection for Führerschein */}
         <View className="flex flex-col w-full">
           <Text className="text-white mb-2">Führerschein</Text>
           <View className="flex flex-row w-full gap-4">
-            <View className="flex-1 items-center p-4 rounded-lg bg-[#2E4BA4] border-2 border-white text-white">
-              {/* check icon */}
-            </View>
-            <View className="flex-1 items-center p-4 rounded-lg bg-red-600 text-white">
-              {/* cancel icon */}
-            </View>
+            <TouchableOpacity onPress={() => setHasLicense(true)} className={`flex-1 items-center p-4 rounded-lg ${hasLicense === true ? 'bg-[#2E4BA4] border-2 border-white' : 'bg-white'}`}>
+              <Ionicons name="checkmark" size={22} color={hasLicense === true ? '#FFFFFF' : '#000'} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setHasLicense(false)} className={`flex-1 items-center p-4 rounded-lg ${hasLicense === false ? 'bg-red-600 border-2 border-white' : 'bg-white'}`}>
+              <Ionicons name="close" size={22} color={hasLicense === false ? '#FFFFFF' : '#000'} />
+            </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity className="bg-[#4269E1] p-4 rounded-lg flex items-center justify-center mt-6" onPress={() => router.push("/(auth)/signup/step2")}> 
-          {/* double chevron right icon to indicate continue */}
+        <TouchableOpacity disabled={!canContinue} className={`p-4 rounded-lg flex items-center justify-center mt-6 ${canContinue ? 'bg-[#4269E1]' : 'bg-[#2E4BA4]'}`} onPress={() => router.push("/(auth)/signup/step2")}> 
+          <Ionicons name="chevron-forward-outline" size={22} color="#FFFFFF" />
         </TouchableOpacity>
       </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#273444", padding: 16, paddingTop: 64 },
-  headerRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
-  headerTitle: { color: "#FFFFFF", fontSize: 18, fontWeight: "700" },
-  input: { backgroundColor: "#324155", color: "#FFFFFF", borderRadius: 10, paddingHorizontal: 14, height: 48, marginBottom: 12 },
-  primaryBtn: { backgroundColor: "#2E4BA4", height: 48, borderRadius: 10, alignItems: "center", justifyContent: "center", marginTop: 8 },
-  primaryBtnText: { color: "#FFFFFF", fontWeight: "700" },
-});
+ 

@@ -4,15 +4,13 @@ import BackButton from "../../../components/BackButton";
 
 export default function TermsScreen() {
   return (
-    <View style={{ flex: 1, backgroundColor: "#273444", padding: 16, paddingTop: 64 }}>
-      <View style={{ position: "absolute", left: 12, top: 16 }}>
+    <View className="flex-1 bg-[#273444] p-4 pt-16">
+      <View className="absolute left-3 top-3">
         <BackButton />
       </View>
-      <Text style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "700", marginBottom: 16, textAlign: "center" }}>Terms & Conditions</Text>
+      <Text className="text-white text-xl font-bold mb-4 text-center">Terms & Conditions</Text>
       <ScrollView>
-        <Text style={{ color: "#E5E7EB" }}>
-          Placeholder terms... Replace with your content.
-        </Text>
+        <Text className="text-gray-200">Placeholder terms... Replace with your content.</Text>
       </ScrollView>
     </View>
   );

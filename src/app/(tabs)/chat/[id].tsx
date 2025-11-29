@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import BackButton from "../../../components/BackButton";
+import { StatusBar } from "expo-status-bar";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface Msg { id: string; text: string; fromMe?: boolean }
 
@@ -25,6 +27,7 @@ export default function ChatDetailScreen() {
 
   return (
     <View className="flex-1 bg-[#273444]">
+      <StatusBar translucent={false} style="dark" backgroundColor="#FFFFFF" />
       <View className="flex bg-white p-6 rounded-b-xl flex-row items-center justify-center pb-4">
         <BackButton />
         <View className="flex-1 items-center">
@@ -44,7 +47,7 @@ export default function ChatDetailScreen() {
       <View className="flex m-6 flex-row items-center justify-center p-2 rounded-lg bg-white">
         <TextInput value={draft} onChangeText={setDraft} placeholder="Nachricht senden..." placeholderTextColor="#94A3B8" className="flex-1 p-0 text-lg"/>
         <TouchableOpacity onPress={send} className="bg-[#4269E1] p-2 rounded-lg">
-          {/* arrow up icon */}
+          <Ionicons name="arrow-up" size={18} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
     </View>

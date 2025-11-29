@@ -19,21 +19,11 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#273444" }}
-    >
-      <Image
-        source={logo}
-        resizeMode="contain"
-        style={{ width: 140, height: 140, marginBottom: 16 }}
-      />
-      <Text style={{ color: "#FFFFFF", fontSize: 28, fontWeight: "700" }}>
-        Counted Tech
-      </Text>
+    <View className="flex-1 bg-[#273444] items-center justify-center">
+      <Image source={logo} resizeMode="contain" className="w-36 h-36 mb-4" />
+      <Text className="text-white text-2xl font-bold">Counted Tech</Text>
       {showSubtitle && (
-        <Text style={{ color: "#D1D5DB", fontSize: 16, marginTop: 8 }}>
-          developed by Peace
-        </Text>
+        <Text className="absolute bottom-8 text-white text-xs">developed by Shuziren</Text>
       )}
     </View>
   );

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, TextInput } from "react-native";
 import { router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ModalCard from "../../../components/ModalCard";
 
 export default function MaterialListScreen() {
-  const [materials] = useState(
-    Array.from({ length: 8 }).map((_, i) => ({ id: String(i + 1), title: `Material ${i + 1}`, desc: "Brief description." }))
+  type Material = { id: string; name: string; anzahl: string; einheit: string };
+  const [materials, setMaterials] = useState<Material[]>(
+    Array.from({ length: 8 }).map((_, i) => ({ id: String(i + 1), name: `Material ${i + 1}`, anzahl: String((i % 5) + 1), einheit: "Stk" }))
   );
-  const [selected, setSelected] = useState<{ id: string; title: string; desc: string } | null>(null);
+  const [selected, setSelected] = useState<Material | null>(null);
   const [showDetail, setShowDetail] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [addName, setAddName] = useState("");
+  const [addAnzahl, setAddAnzahl] = useState("");
+  const [addEinheit, setAddEinheit] = useState("");
 
   return (
     <View className="flex-1 bg-[#273444] p-4">
@@ -31,25 +35,79 @@ export default function MaterialListScreen() {
             }}
             className="p-3 rounded-lg bg-white mb-4"
           >
-            <Text className="text-black font-bold">{item.title}</Text>
-            <Text className="text-gray-200">{item.desc}</Text>
+            <Text className="text-black font-bold">{item.name}</Text>
+            <View className="flex-row gap-3 mt-1">
+              <View className="flex-row items-center gap-2">
+                <Text className="text-black/70">Anzahl:</Text>
+                <Text className="text-black font-semibold">{item.anzahl}</Text>
+              </View>
+              <View className="flex-row items-center gap-2">
+                <Text className="text-black/70">Einheit:</Text>
+                <Text className="text-black font-semibold">{item.einheit}</Text>
+              </View>
+            </View>
           </TouchableOpacity>
         )}
       />
 
-      <ModalCard visible={showDetail} onClose={() => setShowDetail(false)} title={selected?.title} align="top">
-        <Text className="text-black/80 mb-2">{selected?.desc}</Text>
+      <ModalCard visible={showDetail} onClose={() => setShowDetail(false)} title={selected?.name}>
+        <View className="gap-3">
+          <Text className="text-black/80">Material</Text>
+          <View className="bg-[#F3F4F6] rounded-xl px-4 py-3">
+            <Text className="text-black font-semibold">{selected?.name}</Text>
+          </View>
+          <View className="flex-row gap-3">
+            <View className="flex-1 bg-[#F3F4F6] rounded-xl px-4 py-3">
+              <Text className="text-black/60">Anzahl</Text>
+              <Text className="text-black font-semibold">{selected?.anzahl}</Text>
+            </View>
+            <View className="flex-1 bg-[#F3F4F6] rounded-xl px-4 py-3">
+              <Text className="text-black/60">Einheit</Text>
+              <Text className="text-black font-semibold">{selected?.einheit}</Text>
+            </View>
+          </View>
+        </View>
       </ModalCard>
 
-      <ModalCard visible={showAdd} onClose={() => setShowAdd(false)} title="Add Material" align="top">
+      <ModalCard visible={showAdd} onClose={() => setShowAdd(false)} title="Add Material">
         <View className="gap-3">
-          <View className="bg-[#F3F4F6] rounded-xl px-4 py-3">
-            <Text className="text-black/80">Title</Text>
+          <Text className="text-black/80">Material</Text>
+          <TextInput
+            placeholder="Material name"
+            placeholderTextColor="#6B7280"
+            className="bg-[#F3F4F6] rounded-xl px-4 py-3"
+            value={addName}
+            onChangeText={setAddName}
+          />
+          <View className="flex-row gap-3">
+            <TextInput
+              placeholder="Anzahl"
+              placeholderTextColor="#6B7280"
+              keyboardType="number-pad"
+              className="flex-1 bg-[#F3F4F6] rounded-xl px-4 py-3"
+              value={addAnzahl}
+              onChangeText={setAddAnzahl}
+            />
+            <TextInput
+              placeholder="Einheit"
+              placeholderTextColor="#6B7280"
+              className="flex-1 bg-[#F3F4F6] rounded-xl px-4 py-3"
+              value={addEinheit}
+              onChangeText={setAddEinheit}
+            />
           </View>
-          <View className="bg-[#F3F4F6] rounded-xl px-4 py-6">
-            <Text className="text-black/80">Description</Text>
-          </View>
-          <TouchableOpacity className="bg-[#2E4BA4] h-11 rounded-xl items-center justify-center" onPress={() => setShowAdd(false)}>
+          <TouchableOpacity
+            className="bg-[#2E4BA4] h-11 rounded-xl items-center justify-center"
+            onPress={() => {
+              if (!addName || !addAnzahl || !addEinheit) return;
+              const newItem: Material = { id: String(Date.now()), name: addName, anzahl: addAnzahl, einheit: addEinheit };
+              setMaterials((prev) => [newItem, ...prev]);
+              setAddName("");
+              setAddAnzahl("");
+              setAddEinheit("");
+              setShowAdd(false);
+            }}
+          >
             <Text className="text-white font-bold">Save</Text>
           </TouchableOpacity>
         </View>

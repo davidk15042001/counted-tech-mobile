@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
+import { Modal, Pressable, View, Text, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface Props {
@@ -7,24 +7,40 @@ interface Props {
   onClose: () => void;
   title?: string;
   children?: ReactNode;
-  align?: "center" | "top";
 }
 
-export default function ModalCard({ visible, onClose, title, children, align = "center" }: Props) {
+export default function ModalCard({ visible, onClose, children }: Props) {
   return (
-    <Modal visible={visible} animationType="fade" transparent>
-      <View className="flex-1">
-        <View className="absolute inset-0 bg-black/50" />
-        <View className={`absolute inset-0 ${align === "top" ? 'justify-start pt-20' : 'justify-center'} items-center px-4`}>
-          <View className="bg-white rounded-2xl w-full max-w-[520px] p-4">
-            <TouchableOpacity onPress={onClose} className="absolute right-3 top-3 p-2 rounded-lg">
-              <Ionicons name="close" size={20} color="#000" />
-            </TouchableOpacity>
-            {!!title && <Text className="text-black text-lg font-semibold text-center mb-2">{title}</Text>}
-            <View className="mt-2">{children}</View>
-          </View>
-        </View>
-      </View>
+    <Modal
+      transparent
+      visible={visible}
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      <Pressable onPress={onClose} className="flex-1 w-full">
+        <Backdrop />
+        <Pressable className="w-full flex p-6 items-center justify-center">
+            <View className="bg-white p-4 rounded-lg flex flex-col w-full">
+                <View style={{flexDirection: "row-reverse"}}>
+                    <Pressable onPress={onClose} className="p-2 bg-black rounded-lg">
+                        <Ionicons name="close" size={24} color="#fff" />
+                    </Pressable>
+                </View>
+                <View>{children}</View>
+            </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
+}
+
+function Backdrop() {
+    const { BlurView } = require("expo-blur");
+    return (
+      <BlurView
+        intensity={80}
+        tint="dark"
+        style={{ ...StyleSheet.absoluteFillObject }}
+      />
+    );
 }
